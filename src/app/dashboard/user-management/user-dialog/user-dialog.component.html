@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Usuario</h1>
+<div mat-dialog-content>
+  <div fxLayout="column">
+    <div *ngIf="loading; else elseUser" fxFlex="100%" fxFlexAlign="center">
+      <h4>Cargando usuario...</h4>
+    </div>
+    <ng-template #elseUser>
+      <form (ngSubmit)="onSave($event)" [formGroup]="formGroup" #formUser fxLayout="column">
+        <div fxFlex="100%">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+            <mat-form-field appearance="outline">
+              <mat-label>Email:</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+          <mat-form-field appearance="outline">
+            <mat-label>Tema:</mat-label>
+            <mat-select formControlName="theme">
+              <mat-option [value]="'light'">Claro</mat-option>
+              <mat-option [value]="'dark'">Oscuro</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+            <label>Bloqueado: </label>
+            <mat-checkbox formControlName="locked"></mat-checkbox>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+  <button mat-button cdkFocusInitial (click)="save()">Guardar</button>
+</div>

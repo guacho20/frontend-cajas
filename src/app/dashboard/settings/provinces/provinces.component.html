@@ -1,0 +1,36 @@
+<div class="table-container mat-elevation-z8">
+  <div fxLayout="row" fxLayoutAlign="end baseline">
+    <button mat-fab (click)="createProvince()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <mat-table class="table" [dataSource]="provincesData" matSort matSortActive>
+    <ng-container matColumnDef="detail">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Provincia </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row" (click)="openProvince(row.id)"> {{row.detail}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row">
+        <button mat-icon-button *ngIf="row.is_active" matTooltip="Ver ciudades" (click)="openCities(row.id)">
+          <mat-icon>location_city</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="row.is_active" matTooltip="Eliminar provincia" (click)="onDelete(row.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr fxLayout="row" fxLayoutAlign="space-between" mat-header-row *matHeaderRowDef="displayedProvincesColumns"></tr>
+    <tr
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+      matRipple
+      [matRippleColor]="'light-grey'"
+      mat-row
+      *matRowDef="let row; columns: displayedProvincesColumns;"
+    ></tr>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+</div>

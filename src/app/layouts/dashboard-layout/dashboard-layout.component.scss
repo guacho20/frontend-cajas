@@ -1,0 +1,43 @@
+mat-toolbar {
+  position: fixed;
+  width: 85vw;
+  transition: width ease 0.25s;
+
+  &.all_width {
+    width: 100vw;
+  }
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-icon {
+  padding: 0 14px;
+}
+
+.theme-container {
+  width: 100%;
+  height: 100%;
+}
+
+.principal-container {
+  width: 100%;
+  height: 100%;
+
+  .principal-sidenav {
+    width: 15vw;
+  }
+}
+
+.ripple-container {
+  cursor: pointer;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}

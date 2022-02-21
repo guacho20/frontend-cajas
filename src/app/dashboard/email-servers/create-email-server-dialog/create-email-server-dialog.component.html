@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Registrar Servidor de Email</h1>
+<div mat-dialog-content>
+  <div fxLayout="column">
+    <form (ngSubmit)="onSave($event)" [formGroup]="formGroup" #formEmail fxLayout="column">
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="user">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%">
+          <mat-form-field appearance="outline">
+            <mat-label>Email:</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+      </div>
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña:</mat-label>
+          <input matInput formControlName="password">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección SMTP:</mat-label>
+          <input matInput formControlName="smtp_address">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Puerto:</mat-label>
+          <input matInput formControlName="port">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+  <button mat-button cdkFocusInitial (click)="save()">Guardar</button>
+</div>

@@ -1,0 +1,96 @@
+<h1 mat-dialog-title>Usuario</h1>
+<div mat-dialog-content>
+  <div fxLayout="column">
+    <form (ngSubmit)="onSave($event)" [formGroup]="formGroup" #formUser fxLayout="column">
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre*:</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>RUC*:</mat-label>
+          <input matInput formControlName="ruc">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Estatus:</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngIf="states.length === 0">Cargando datos...</mat-option>
+            <mat-option *ngFor="let state of states" [value]="state.id">{{ state.detail }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Empresa*:</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngIf="types.length === 0">Cargando datos...</mat-option>
+            <mat-option *ngFor="let type of types" [value]="type.id">{{ type.detail }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad*:</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngIf="cities.length === 0">Cargando datos...</mat-option>
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.detail }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Email*:</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Dueño / Presidente*:</mat-label>
+          <input matInput formControlName="owner">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono*:</mat-label>
+          <input matInput formControlName="phone">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Celular*:</mat-label>
+          <input matInput formControlName="cellphone">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección*:</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha inicial*:</mat-label>
+          <input matInput [matDatepicker]="entryPicker" formControlName="entry_date">
+          <mat-datepicker-toggle matSuffix [for]="entryPicker"></mat-datepicker-toggle>
+          <mat-datepicker #entryPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha final*:</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="end_date">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Abreviatura*:</mat-label>
+          <input matInput formControlName="abbr">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%" fxLayout>
+        <mat-form-field appearance="outline">
+          <mat-label>Longitud*:</mat-label>
+          <input matInput formControlName="lon">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Latitud*:</mat-label>
+          <input matInput formControlName="lat">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+  <button mat-button cdkFocusInitial (click)="save()">Guardar</button>
+</div>

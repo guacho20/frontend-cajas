@@ -1,0 +1,115 @@
+<div fxLayout="column" class="dash-container">
+  <div>
+    <h3 class="mat-display-3">Gestionar usuarios</h3>
+  </div>
+  <mat-tab-group mat-stretch-tabs [backgroundColor]="'primary'" [color]="'accent'">
+    <mat-tab label="Usuarios" matSort matSort>
+      <div class="table-container mat-elevation-z8">
+        <div fxLayout="row" fxLayoutAlign="space-between baseline">
+          <mat-form-field appearance="outline">
+            <mat-label>Filtrar usuarios</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Adolfo">
+          </mat-form-field>
+          <button mat-fab (click)="createUser()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <mat-table class="table" [dataSource]="usersData" matSort matSortActive>
+          <ng-container matColumnDef="name">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row" (click)="openUser(row.id)"> {{row.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row" (click)="openUser(row.id)"> {{row.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="is_active">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row" (click)="openUser(row.id)">
+              <mat-checkbox [checked]="row.is_active" disabled></mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="profile">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Perfil </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row" (click)="openUser(row.id)">
+              {{ row.profile.profile }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row">
+              <button mat-icon-button *ngIf="row.is_active" matTooltip="Desactivar usuario" (click)="onDeactivate(row.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="!row.is_active" matTooltip="Activar usuario" (click)="onActivate(row.id)">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Cambiar contraseña"  (click)="editPassword(row.id)">
+                <mat-icon>lock</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Cambiar perfil" [matMenuTriggerFor]="profileChangeMenu">
+                <mat-icon>policy</mat-icon>
+              </button>
+              <mat-menu #profileChangeMenu="matMenu">
+                <button mat-menu-item *ngFor="let profile of profiles" (click)="onUpdateProfile(row.id, profile.id)">{{ profile.profile }}</button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr fxLayout="row" fxLayoutAlign="space-between" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            fxLayout="row"
+            fxLayoutAlign="space-between"
+            matRipple
+            [matRippleColor]="'light-grey'"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+          ></tr>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Reglas de contraseña">
+      <div class="table-container">
+        <mat-table class="table" [dataSource]="pwRulesData" class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="min_lenght">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> Longitud min. </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.min_lenght}} </td>
+          </ng-container>
+          <ng-container matColumnDef="special_chars_num">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Carácteres especiales </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.special_chars_num}} </td>
+          </ng-container>
+          <ng-container matColumnDef="capital_letters_num">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Mayúsculas </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.capital_letters_num}} </td>
+          </ng-container>
+          <ng-container matColumnDef="lower_letters_num">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Minúsculas </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.lower_letters_num}} </td>
+          </ng-container>
+          <ng-container matColumnDef="numbers_num">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Números </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.numbers_num}} </td>
+          </ng-container>
+          <ng-container matColumnDef="attemps">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Intentos </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.attemps}} </td>
+          </ng-container>
+          <ng-container matColumnDef="previous_valid_num">
+            <th fxFlex="100%" mat-header-cell *matHeaderCellDef> N° Intentos Válidos </th>
+            <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.previous_valid_num}} </td>
+          </ng-container>
+
+          <tr fxLayout="row" fxLayoutAlign="space-between" mat-header-row *matHeaderRowDef="passDisplayedColumns"></tr>
+          <tr fxLayout="row" fxLayoutAlign="space-between" mat-row *matRowDef="let row; columns: passDisplayedColumns;"></tr>
+        </mat-table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

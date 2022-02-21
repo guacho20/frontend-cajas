@@ -1,0 +1,40 @@
+<div fxLayout="column" class="dash-container">
+  <div>
+    <h3 class="mat-display-3">Lista de acciones en el sistema</h3>
+  </div>
+  <mat-table
+    class="table"
+    [dataSource]="accessData"
+    matSort
+    matSortActive="action"
+    matSortDisableClear
+    matSortDirection="desc"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="action">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.action}} </td>
+    </ng-container>
+    <ng-container matColumnDef="user">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row"> {{ row.user ? row.user.name : 'SIN SESIÓN'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="audit_action">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Acción </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.audit_action.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="audit_date">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.audit_date | date}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ip">
+      <th fxFlex="100%" mat-header-cell *matHeaderCellDef mat-sort-header> IP </th>
+      <td fxFlex="100%" mat-cell *matCellDef="let row"> {{row.ip}} </td>
+    </ng-container>
+
+    <tr fxLayout="row" fxLayoutAlign="space-between" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr fxLayout="row" fxLayoutAlign="space-between" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </mat-table>
+
+  <mat-paginator [length]="total_count" [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+</div>

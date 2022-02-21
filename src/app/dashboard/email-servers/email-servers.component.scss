@@ -1,0 +1,19 @@
+.table-container {
+  display: block;
+  margin: 20px;
+  position: relative;
+}
+
+tr {
+  cursor: pointer;
+  width: 100%;
+}
+
+mat-form-field {
+  padding: 1em;
+  width: 40%;
+}
+
+[mat-fab] {
+  margin-right: 2em;
+}

@@ -1,0 +1,140 @@
+<div #themeContainer class="theme-container" [ngClass]="{ 'dark-theme': profile.theme === 'dark' }">
+  <mat-drawer-container class="principal-container" autosize>
+    <mat-drawer #drawer class="principal-sidenav" mode="side" opened="true">
+      <mat-accordion [hideToggle]="true" [multi]="true">
+        <mat-list #homeOption>
+          <mat-list-item
+            class="ripple-container"
+            [ngClass]="{ 'mat-primary-bg': route === '/dashboard' }"
+            matRipple
+            [matRippleColor]="'light-gray'"
+            [routerLink]="'/dashboard'"
+          >
+            Inicio
+          </mat-list-item>
+        </mat-list>
+        <mat-expansion-panel [expanded]="route === '/dashboard/audit/access'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Auditar
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list #auditOptions>
+            <mat-list-item>
+              Auditoría
+            </mat-list-item>
+            <mat-list-item
+              class="ripple-container"
+              [ngClass]="{ 'mat-primary-bg': route === '/dashboard/audit/access' }"
+              matRipple [matRippleColor]="'light-gray'"
+              [routerLink]="'/dashboard/audit/access'"
+            >
+              Registro de accesos
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Administración
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list #adminOptions>
+            <mat-list-item
+              class="ripple-container"
+              [ngClass]="{ 'mat-primary-bg': route === '/dashboard/settings' }"
+              matRipple
+              [matRippleColor]="'light-gray'"
+              [routerLink]="'/dashboard/settings'"
+            >
+              Configuraciones
+            </mat-list-item>
+            <mat-list-item
+              class="ripple-container"
+              [ngClass]="{ 'mat-primary-bg': route === '/dashboard/emails' }"
+              matRipple
+              [matRippleColor]="'light-gray'"
+              [routerLink]="'/dashboard/emails'"
+            >
+              Configurar Email
+            </mat-list-item>
+            <mat-list-item
+              class="ripple-container"
+              [ngClass]="{ 'mat-primary-bg': route === '/dashboard/users' }"
+              matRipple
+              [matRippleColor]="'light-gray'"
+              [routerLink]="'/dashboard/users'"
+            >
+              Gestión de usuarios
+            </mat-list-item>
+            <mat-list-item class="ripple-container" (click)="false">
+              Reportes
+            </mat-list-item>
+            <mat-list-item
+              class="ripple-container"
+              [ngClass]="{ 'mat-primary-bg': route === '/dashboard/commercial' }"
+              matRipple
+              [matRippleColor]="'light-gray'"
+              [routerLink]="'/dashboard/commercial'"
+            >
+              Gestión de establecimientos
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-list #cobrosOptions>
+          <mat-list-item
+            class="ripple-container"
+            [ngClass]="{ 'mat-primary-bg': route === '/dashboard/charges' }"
+            matRipple
+            [matRippleColor]="'light-gray'"
+            [routerLink]="'/dashboard/charges'"
+          >
+            Lista de cobros
+          </mat-list-item>
+          <mat-list-item
+            class="ripple-container"
+            [ngClass]="{ 'mat-primary-bg': route === '/dashboard/payments' }"
+            matRipple
+            [matRippleColor]="'light-gray'"
+            [routerLink]="'/dashboard/payments'"
+          >
+            Pagos
+          </mat-list-item>
+          <mat-list-item
+            class="ripple-container"
+            [ngClass]="{ 'mat-primary-bg': route === '/dashboard/consults' }"
+            matRipple
+            [matRippleColor]="'light-gray'"
+            [routerLink]="'/dashboard/consults'"
+          >
+            Consultas
+          </mat-list-item>
+        </mat-list>
+      </mat-accordion>
+    </mat-drawer>
+
+
+    <mat-toolbar color="primary" #principalToolbar [ngClass]="{ 'all_width': toolbarAllWidth }">
+      <mat-toolbar-row>
+        <button mat-button (click)="closeSidenav()">
+          <mat-icon class="toolbar-icon" aria-hidden="false" aria-label="Sidenav Menu">menu</mat-icon>
+        </button>
+        <span>Sistema de cajas</span>
+        <span class="toolbar-spacer"></span>
+        <button mat-icon-button (click)="changeTheme()">
+          <mat-icon aria-hidden="false" aria-label="Change Theme">invert_colors</mat-icon>
+        </button>
+        <button mat-button [matMenuTriggerFor]="profileMenu">
+          {{ profile?.name }}
+          <mat-icon class="toolbar-icon" aria-hidden="false" aria-label="Profile Menu">person</mat-icon>
+        </button>
+        <mat-menu #profileMenu="matMenu" xPosition="before">
+          <button mat-menu-item>Perfil</button>
+          <button mat-menu-item (click)="logout()">Cerrar sesión</button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+
+  </mat-drawer-container>
+</div>

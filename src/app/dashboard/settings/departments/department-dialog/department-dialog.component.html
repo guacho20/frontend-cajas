@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Registrar departamento</h1>
+<div mat-dialog-content>
+  <div fxLayout="column">
+    <form (ngSubmit)="onSave($event)" [formGroup]="formGroup" fxLayout="column">
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100%">
+        <mat-form-field appearance="outline">
+          <mat-label>Base</mat-label>
+          <input matInput formControlName="name_base">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+  <button mat-button cdkFocusInitial (click)="save()">Guardar</button>
+</div>
